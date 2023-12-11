@@ -15,10 +15,12 @@ console.log(mes);
 var ano = today.getFullYear();
 console.log(ano);
 
+// if do dia
 if(dia < 10) {
     dia = '0' + dia;
 }
 
+// id do mes
 if(mes < 10) {
     mes = '0' + mes;
 }
