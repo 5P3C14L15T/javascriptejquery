@@ -27,7 +27,10 @@ console.log(carro);
 // split e pop
 
 var image = 'nomeDaImagem.jpeg';
+var image2 = 'nomeDaImagem.png';
 
 var extensao = image.split('.').pop();
+var extensao2 = image2.split('.').pop();
 console.log(extensao);
+console.log(extensao2);
 
