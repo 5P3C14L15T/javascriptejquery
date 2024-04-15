@@ -1,0 +1,12 @@
+var el = document.getElementById('one');
+console.log(el);
+var el1 = document.getElementById('one').firstChild;
+console.log(el1);
+var el2 = document.getElementById('one').firstChild.nextSibling;
+console.log(el2);
+var el3 = document.getElementById('one').firstChild.nextSibling.nodeValue;
+console.log(el3);
+var el4 = document.getElementById('one').firstChild;
+console.log(el4.firstChild.nodeValue);
+var el5 = document.getElementById('one').lastChild;
+console.log(el5);
