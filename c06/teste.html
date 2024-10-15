@@ -1,0 +1,113 @@
+<!-- <button id="myButton">Clique em mim!</button>
+
+<script>
+    var button = document.getElementById('myButton');
+    button.addEventListener('click', function (e) {
+        console.log('Você clicou no elemento:', e.target);  // Mostra o botão que foi clicado
+    });
+</script>
+
+<a href="https://www.example.com" id="myLink">Visitar o site</a>
+
+<script>
+    var link = document.getElementById('myLink');
+    link.addEventListener('click', function (e) {
+        e.preventDefault();  // O link não vai abrir
+        console.log('O link foi clicado, mas o comportamento padrão foi impedido!');
+    });
+</script>
+
+<input type="text" id="username" placeholder="Pressione Enter">
+
+<script>
+    var input = document.getElementById('username');
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            console.log('Você pressionou a tecla Enter!');
+        }
+    });
+</script> -->
+
+<p>Clique em qualquer lugar da página</p>
+
+<!-- <script>
+    document.addEventListener('click', function (e) {
+        console.log('Você clicou na posição: ', e.clientX, e.clientY);  // Exibe a posição do clique
+    });
+</script> -->
+
+<button id="botao">botao</button>
+
+<script>
+ var link = document.getElementById('botao');
+   
+ link.addEventListener('click', function(e){
+    console.log("O botão clicado foi: ", e.target);
+ });
+
+</script>
+
+<button id="myButton">Clique em mim</button>
+
+  <script>
+    // Seleciona o botão
+    var button = document.getElementById('myButton');
+    
+    // Adiciona o ouvinte de evento de clique ao botão
+    button.addEventListener('click', function(e) {
+      // Usando event.target para acessar o elemento que disparou o evento
+      console.log('Elemento clicado: ', e.target);  // Exibe o botão que foi clicado
+    });
+  </script>
+
+<div id="parent">
+    <button id="child">Clique aqui</button>
+  </div>
+  
+  <script>
+    var parent = document.getElementById('parent');
+    var child = document.getElementById('child');
+    
+    // Ouvinte na fase de captura
+    parent.addEventListener('click', function(event) {
+      console.log('Capturado no pai na fase de captura');
+    }, true);  // Usando true para captura
+  
+    // Ouvinte no botão
+    child.addEventListener('click', function(event) {
+      console.log('Clicado no botão');
+    });
+  </script>
+  
+  <div id="menu">
+    <button id="menuButton">Abrir Menu</button>
+  </div>
+  
+  <script>
+    var menu = document.getElementById('menu');
+    var button = document.getElementById('menuButton');
+  
+    menu.addEventListener('click', function(event) {
+      console.log('Menu capturou o clique na fase de captura');
+    }, true);  // Captura primeiro
+  
+    button.addEventListener('click', function(event) {
+      console.log('Botão foi clicado');
+    });
+  </script>
+
+
+<button id="target">clique em nós</button>
+<script>
+
+    var target = document.getElementById('target');
+    
+    function checkUser(e) {
+        var tar = e.target;
+        console.log('Botão foi clicado', e.target, " e " + tar);
+    }
+
+    target.addEventListener('click', checkUser, false);
+
+</script>
+  
