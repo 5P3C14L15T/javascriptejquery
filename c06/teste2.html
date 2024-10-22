@@ -1,0 +1,40 @@
+<!-- teste 1 -->
+<button id="myButton">Clique em mim!</button>
+
+<script>
+    var button = document.getElementById('myButton');
+    button.addEventListener('click', function(e) {
+        console.log('Você clicou no elemento: ', e.target);
+    })
+</script>
+
+<!-- teste 2 -->
+
+<a href="www.cursodolivro.com.br" id="link">Visitar o site</a>
+
+<script>
+
+var linkdapagina = document.getElementById('link');
+link.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('O link foi clicado, mas o comportamento foi impedido!');
+})
+
+</script>
+
+<!-- teste 3 -->
+
+<input type="text" name="" id="username" placeholder="Pressione Enter">
+
+<script>
+    var input = document.getElementById('username');
+    input.addEventListener('keydown', function(e) {
+        if(e.key === 'Enter') {
+            console.log("Você pressionou a tecla ENTER!");
+        }
+});
+
+</script>
+
+<!-- teste 4 -->
+ 
