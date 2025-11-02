@@ -1,46 +1,76 @@
-// NOTE: If you run this file locally
-// You will not get a server status and the example will fail
-// Comment out lines 9 and 35 if you are working locally
+// 1. Criar um objeto XMLHttpRequest
+var xhr = new XMLHttpRequest();
+console.log("Etapa 1: Objeto criado", xhr);
 
-var xhr = new XMLHttpRequest();        // Create XMLHttpRequest object
+// 2. Define o que fazer quando a resposta for carregada
+xhr.onload = function () {
+  console.log("Etapa 2: Requisição concluída, resposta recebida do servidor!");
 
-xhr.onload = function() {              // When response has loaded
- // The following conditional check will not work locally - only on a server
- // if (xhr.status === 200) {             // If server status was ok
+  // 3. Verficar o status da resposta
+  console.log("Status da resposta", xhr.status);
 
-  // THIS PART IS DIFFERENT BECAUSE IT IS PROCESSING XML NOT HTML
-  var response = xhr.responseXML;                      // Get XML from the server
-  var events = response.getElementsByTagName('event'); // Find <event> elements
+  if (xhr.status === 200) {
+    console.log("Servidor respondeu com sucesso (status 200)!");
 
-  for (var i = 0; i < events.length; i++) {            // Loop through them
-    var container, image, location, city, newline;      // Declare variables
-    container = document.createElement('div');          // Create <div> container
-    container.className = 'event';                      // Add class attribute
+    // 4. Cpturar o XML retornado
+    var response = xhr.responseXML;
+    console.log("XML recebido", response);
 
-    image = document.createElement('img');              // Add map image
-    image.setAttribute('src', getNodeValue(events[i], 'map'));
-    image.setAttribute('alt', getNodeValue(events[i], 'location'));
-    container.appendChild(image);
+    // 5. buscar todos os elementos <event> dentro do XML
+    var events = response.getElementsByTagName('event');
+    console.log("Eventos encontrados: ", events.length);
+    console.log(events[0]); //Mostrar o primeiro evento
 
-    location = document.createElement('p');             // Add location data
-    city = document.createElement('b');
-    newline = document.createElement('br');
-    city.appendChild(document.createTextNode(getNodeValue(events[i], 'location')));
-    location.appendChild(newline);
-    location.insertBefore(city, newline);
-    location.appendChild(document.createTextNode(getNodeValue(events[i], 'date')));
-    container.appendChild(location);
+    // 6. Percorrer cada evento encontrado
+    for (var i = 0; i < events.length; i++) {
 
-    document.getElementById('content').appendChild(container);
+      console.log("Processando evento", i + 1);
+      
+      // Criar o container principal do evento
+      var container = document.createElement('div');
+      container.className = 'event';
+      console.log("Criando container:", container);
+
+      // cria e adiciona a imagem do mapa
+      var image = document.createElement('img');
+      image.setAttribute('src', getNodeValue(events[i], 'map'));
+      container.appendChild(image);
+      console.log("Imagem adicionada:", image.src);
+
+
+      // criar o parágrafo com local e data
+      var location = document.createElement('p');
+      var city = document.createElement('b')
+      var newline = document.createElement('br');
+
+      city.appendChild(document.createTextNode(getNodeValue(events[i], 'location')));
+      location.appendChild(city);
+      location.appendChild(newline);
+      location.appendChild(document.createTextNode(getNodeValue(events[i], 'date')));
+      container.appendChild(location);
+
+      console.log("Conteúdo do Parágrafo:", location.innerHTML);
+
+      // Adicionar tudo dentro da página (div#content)
+      document.getElementById('content').appendChild(container);
+
+
+    }
+
+    console.log("Exemplo getNodeValue do primeiro evento:", getNodeValue(events[0], 'date'));
+
+
   }
-// }
 
-  function getNodeValue(obj, tag) {                   // Gets content from XML
-    return obj.getElementsByTagName(tag)[0].firstChild.nodeValue;
-  }
 
- // THE FINAL PART IS THE SAME AS THE HTML EXAMPLE BUT IT REQUESTS AN XML FILE
-};
+}
 
-xhr.open('GET', 'data/data.xml', true);             // Prepare the request
-xhr.send(null);                                     // Send the request
+// penúltimo passo
+function getNodeValue(obj, tag){
+  return obj.getElementsByTagName(tag)[0].firstChild.nodeValue;
+}
+
+// último passo, prepara e envia a requisição
+xhr.open('GET', 'data/data.xml', true);
+xhr.send(null);
+console.log("Etapa 3: Requisição enviada ao servidor!");
