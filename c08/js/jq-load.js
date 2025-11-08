@@ -1,16 +1,23 @@
-// NOTE: This example will not work locally in all browsers.
-// In Chrome, if you try this locally, you may get an error along the lines of:
-//       Origin 'null' is therefore not allowed access.
-// You can try it out on the website for the book http://javascriptbook.com/code/c08/
-// or run it on your own server.
+$('nav a').on('click', function(e) {
+  e.preventDefault(); // impede o link de recarregar a página
+  var url = this.href; //captura o endereço da página alvo
+  console.log("Link clicado: ", url);
 
-$('nav a').on('click', function(e) {                 // User clicks nav link
-  e.preventDefault();                                // Stop loading new link
-  var url = this.href;                               // Get value of href
+  // remover o destaque do link anterior
+  $('nav a.current').removeClass('current');
+  // adicionar destaque do link atual
+  $(this).addClass('current');
+  console.log("Novo link ativo: ", $(this).text());
 
-  $('nav a.current').removeClass('current');         // Clear current indicator
-  $(this).addClass('current');                       // New current indicator
+  // remover o conteúdo antigo
+  $('#container').remove();
+  console.log("Conteúdo antigo removido!");
 
-  $('#container').remove();                          // Remove old content
-  $('#content').load(url + ' #container').hide().fadeIn('slow'); // New content
+  // carregar o novo conteúdo com animação
+  $('#content').load(url + ' #content', function() {
+    console.log("Novo conteúdo carregado com sucesso de: ", url);
+  }).hide()
+  .fadeIn("slow");
+  
+
 });

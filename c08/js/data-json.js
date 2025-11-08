@@ -1,35 +1,60 @@
-// NOTE: If you run this file locally
-// You will not get a server status
-// You can comment out lines 9 and 26 to make it work locally
+//  criar um objeto XMLHttpRequest - responsável por fazer a requisição AJAX
+var xhr = new XMLHttpRequest();
+console.log("Etapa 1: Objeto XMLHttpRequest criado", xhr);
 
-var xhr = new XMLHttpRequest();                 // Create XMLHttpRequest object
+// Etapa 2 definir o que fazer quando a resposta for carregada
+xhr.onload = function() {
 
-xhr.onload = function() {                       // When readystate changes
-  // The following conditional check will not work locally - only on a server
-  //if(xhr.status === 200) {                      // If server status was ok
-    responseObject = JSON.parse(xhr.responseText);
+  console.log("Etapa 2: Resposta recebida do servidor!");
 
-    // BUILD UP STRING WITH NEW CONTENT (could also use DOM manipulation)
+  // mostrar o status da resposta do servidor (200)
+  console.log("Status da resposta: ", xhr.status);
+
+  // verificar se o servidor respondeu corretamente
+  if(xhr.status === 200) {
+    console.log("Servidor respondeu com sucesso (status 200)!");
+    // Converter o texto JSON recebido em obj JS
+    var responseOject = JSON.parse(xhr.responseText);
+
+    console.log("Objeto JSON convertido: ", responseOject);
+
+    // criar uma variável para armazenar o novo HTML
     var newContent = '';
-    for (var i = 0; i < responseObject.events.length; i++) { // Loop through object
+    console.log("Variável newContent criada (Vazia): ", newContent);
+
+    // Percorrer cada item (evento) dentro do JSON
+    for( var i = 0; i < responseOject.events.length; i++) {
+      console.log(`Processando evento ${i + 1}:`,  responseOject.events[i]);
+
+      // montar o HTML de cada evento e acumular na string
       newContent += '<div class="event">';
-      newContent += '<img src="' + responseObject.events[i].map + '" ';
-      newContent += 'alt="' + responseObject.events[i].location + '" />';
-      newContent += '<p><b>' + responseObject.events[i].location + '</b><br>';
-      newContent += responseObject.events[i].date + '</p>';
+      newContent += '<img src="' + responseOject.events[i].map + '" ';
+      newContent += 'alt="' + responseOject.events[i].location + '" />' ;
+      newContent += '<p><b>' + responseOject.events[i].location + ' </b><br>';
+      newContent += responseOject.events[i].date + '</p>';
       newContent += '</div>';
+
+      console.log("HTML parcial gerado até agora: ", newContent);
+
     }
 
-    // Update the page with the new content
+    // atualizar o conteúdo da página com o HTML montado
     document.getElementById('content').innerHTML = newContent;
+    console.log("HTML final inserido na página!");
 
-  //}
-};
 
-xhr.open('GET', 'data/data.json', true);        // Prepare the request
-xhr.send(null);                                 // Send the request
+  } else {
+console.log("Erro: servidor retornou status diferente de 200");
+  }
 
-// When working locally in Firefox, you may see an error saying that the JSON is not well-formed.
-// This is because Firefox is not reading the correct MIME type (and it can safely be ignored).
+}
 
-// If you get it on a server, you may need to se the MIME type for JSON on the server (application/JSON).
+
+
+
+
+// Etapa Final: preparar e enviar a requisição AJAX
+console.log("Prepara requisição para 'data/data.json'...");
+xhr.open('GET', 'data/data.json', true);
+xhr.send(null);
+console.log("Etapa 3: Requisição enviada ao servidor");
